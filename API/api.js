@@ -63,13 +63,13 @@ app.delete('/eliminarPaciente/:dni', async (req, res) => {
 app.put('/actualizarPaciente/:dni', async (req, res) => {
   try {
     const pacienteDni = req.params.dni;
-    const { nombre, edad, email, dni , genero} = req.body;
+    const { nombre, edad, email, dni, ficha, genero} = req.body;
 
-    if (!pacienteDni || !nombre || !edad || !email || !dni) {
+    if (!pacienteDni || !nombre || !edad || !email || !dni || !ficha) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    const [result] = await pool.query('UPDATE pacientes SET nombre = ?, edad = ?, email = ?, dni = ? WHERE dni = ?', [nombre, edad, email, dni, pacienteDni]);
+    const [result] = await pool.query('UPDATE pacientes SET nombre = ?, edad = ?, email = ?, dni = ?, ficha = ?, WHERE dni = ?', [nombre, edad, email, dni, ficha, pacienteDni]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Paciente no encontrado' });
