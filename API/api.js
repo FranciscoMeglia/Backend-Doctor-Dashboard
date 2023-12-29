@@ -69,7 +69,7 @@ app.put('/actualizarPaciente/:dni', async (req, res) => {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    const [result] = await pool.query('UPDATE pacientes SET nombre = ?, edad = ?, email = ?, dni = ?, ficha = ?, WHERE dni = ?', [nombre, edad, email, dni, ficha, pacienteDni]);
+    const [result] = await pool.query('UPDATE pacientes SET nombre = ?, edad = ?, email = ?, dni = ?, ficha = ? WHERE dni = ?', [nombre, edad, email, dni, ficha, pacienteDni]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Paciente no encontrado' });
